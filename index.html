@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>智能社--http://www.zhinengshe.com</title>
+    <style>
+        ul{
+            width: 400px;
+            margin: 100px auto;
+        }
+        li{
+            list-style: none;
+            width: 100px;
+            height: 100px;
+            background: #cccccc;
+            margin: 10px;
+            float: left;
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        window.onload = function () {
+            var oBtn = document.getElementById('btn');
+            var aLi = document.getElementsByTagName('li');
+            var aPos = [];
+            var timer = null;
+            for(var i=0;i<aLi.length;i++){
+                aPos.push({
+                    left:aLi[i].offsetLeft,
+                    top:aLi[i].offsetTop
+                })
+            }
+            for(var i=0;i<aLi.length;i++){
+                aLi[i].style.position='absolute';
+                aLi[i].style.left=aPos[i].left+'px';
+                aLi[i].style.top=aPos[i].top+'px';
+            }
+            oBtn.onclick=function(){
+                var n =0;
+                timer=setInterval(function(){
+//                    aLi[n].style.width=0;
+//                    aLi[n].style.height=0;
+//                    aLi[n].style.left=0;
+//                    aLi[n].style.top=0;
+                    (function(index){
+                        move(aLi[n],{width:0,height:0,left:0,top:0},{complete:function(){
+                            if(index==aLi.length-1){
+                                var n = aLi.length-1;
+                                timer=setInterval(function(){
+
+                                    move(aLi[n],{width:100,height:100,left:aPos[n].left,top:aPos[n].top});
+                                    n--;
+                                    if(n==-1){
+                                        clearInterval(timer);
+                                    }
+                                },300)
+                            }
+                        }});
+                    })(n);
+                    n++;
+                    if(n==aLi.length){
+                        clearInterval(timer);
+                    }
+                },300)
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="下一页" id="btn" style="position: absolute;left: 80px;top: 40px;"/>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
